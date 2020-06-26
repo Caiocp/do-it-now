@@ -1,0 +1,62 @@
+.registerCard{
+    background-color: #f9f4c2;
+    padding: 30px;
+    border-radius: 10px;
+    min-width: 30%;
+    min-height: 50%;
+    margin-top: 20px;
+    font-size: 18px;
+  }
+  
+  .formCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .loginHeader{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+  }
+  
+  .formCard form{
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
+  }
+  
+  .formCard form input{
+    margin-top: 8px;
+    max-height: 50px;
+  }
+
+  .btnContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .registerBtn{
+    background-color: #EF7734;
+    margin: 20px 0;
+    max-width: 50%;
+  }
+
+  .backLink {
+    display: flex;
+    align-items: center;
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.backLink:hover {
+    opacity: 0.8;
+}
