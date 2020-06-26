@@ -1,0 +1,28 @@
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo{
+    display: flex;
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+.logo img:first-child{
+    margin-bottom: 20px;
+}
+
+.buttonContainer{
+    flex-direction: column;
+    width: 70%;
+}
+
+.loginbtn{
+    background-color: #D3CE3D;
+}
+
+.registerbtn{
+    background-color: #EF7734;
+}
