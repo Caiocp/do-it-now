@@ -1,0 +1,60 @@
+.loginCard{
+    background-color: #f9f4c2;
+    padding: 30px;
+    border-radius: 10px;
+    min-width: 30%;
+    min-height: 50%;
+    margin-top: 20px;
+    font-size: 18px;
+  }
+  
+  .formCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .loginText{
+      color: #333;
+      font-size: 24px;
+      margin: 20px 0;
+  }
+  
+  .formCard form{
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
+  }
+  
+  .formCard form input{
+    margin-top: 8px;
+    max-height: 50px;
+  }
+
+  .btnContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .loginBtn{
+    background-color: #D3CE3D;
+    margin-top: 20px;
+    width: 50% !important; 
+  }
+
+  .backLink {
+    display: flex;
+    align-items: center;
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.backLink:hover {
+    opacity: 0.8;
+}
