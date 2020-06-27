@@ -1,0 +1,126 @@
+.container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin-top: 100px;
+}
+
+.listContainer{
+    min-width: 60%;
+    border: 2px solid #B4D9CB;
+    border-radius: 5px;
+}
+
+.listContainerHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    width: 100%;
+    max-width: 60%;
+    margin-bottom: 10px;
+}
+
+.item{
+    border-bottom: 2px solid #B4D9CB;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 5px
+}
+.item:last-child{
+    border-bottom: 0;
+}
+.listItemHeader{
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+}
+
+.listItemHeader div{
+    display: flex;
+    align-items: center;
+}
+
+.listItemHeader img{
+    margin: 5px;
+}
+
+.taskContainer{
+    margin-left: 90px;
+
+}
+
+.taskHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    border-bottom: 2px solid #B4D9CB;
+    width: 95%;
+    padding-bottom: 2px;
+}
+
+input{
+    margin-right: 5px;
+}
+
+.subTaskContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    padding-left: 15px;
+}
+
+.subTaskItem{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.subTaskDiv{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.taskCheckbox{
+    -webkit-appearance: none;
+	border: 2px solid #B4D9CB;
+	padding: 8px;
+	border-radius: 3px;
+	display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+.taskCheckbox:checked {
+	background-color: #B4D9CB;
+	border: 2px solid #B4D9CB;
+	
+}
+.subTaskCheckbox{
+    -webkit-appearance: none;
+	border: 2px solid #B4D9CB;
+	padding: 6px;
+	border-radius: 3px;
+	display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.subTaskCheckbox:checked {
+	background-color: #B4D9CB;
+	border: 2px solid #B4D9CB;
+	
+}
+
+.fix{
+    display: flex;
+    align-items: center;
+}

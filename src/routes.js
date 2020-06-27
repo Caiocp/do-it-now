@@ -5,7 +5,7 @@ import Initial from "./pages/Initial";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import NewTask from "./pages/NewTask";
+import NewList from "./pages/NewList";
 
 // import { Container } from './styles';
 
@@ -17,7 +17,7 @@ function Routes() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/dashboard" component={Dashboard} />
-        <Route path="/task" component={NewTask} />
+        <Route path="/task" component={NewList} />
       </Switch>
     </Router>
   );

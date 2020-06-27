@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import DINLogo from "../../assets/marca_mini_app2.png";
 import Avatar from "../../assets/avatar.png";
