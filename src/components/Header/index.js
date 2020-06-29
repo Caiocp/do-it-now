@@ -6,7 +6,9 @@ import Avatar from "../../assets/avatar.png";
 
 import "./styles.css";
 
-function Header({ user = "user" }) {
+function Header() {
+  const user = localStorage.getItem("username") || "usuário";
+
   return (
     <div className="headerContainer">
       <Link to="/">
