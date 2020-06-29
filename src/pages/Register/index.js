@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
+import { ToastContainer, toast } from "react-toastify";
 
+import schema from "../../utils/registerValidatorSchema";
 import Camera from "../../assets/camera.png";
 import DINLogo from "../../assets/marca_mini_app.png";
 
+import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
 
 function Register() {
@@ -14,10 +17,26 @@ function Register() {
 
   const history = useHistory();
 
-  function handleRegister(e) {
+  async function handleRegister(e) {
     e.preventDefault();
 
-    history.push("/");
+    try {
+      await schema.validate({ name, email, password });
+
+      localStorage.setItem("username", name);
+
+      history.push("/dashboard");
+    } catch (error) {
+      toast.error(error.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   }
 
   return (
@@ -62,6 +81,7 @@ function Register() {
               </button>
             </div>
           </form>
+          <ToastContainer />
         </div>
       </div>
     </div>
