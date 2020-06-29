@@ -1,9 +1,63 @@
 import React from "react";
 
-// import { Container } from './styles';
+import Header from "../../components/Header/";
+import addButton from "../../assets/botao_adicionar.png";
+import listIcon from "../../assets/icone_lista.png";
+import deletelistIcon from "../../assets/icone_deletar_lista.png";
+import editlistIcon from "../../assets/icone_editar.png";
+import deleteTaskIcon from "../../assets/icone_deletar_tarefa-subtarefa.png";
 
-function NewTask() {
-  return <div />;
+import "./styles.css";
+
+function NewList() {
+  return (
+    <>
+      <Header />
+      <div className="container">
+        <div className="newListContainer">
+          <div className="newListHeader">
+            <p>Criar Lista</p>
+          </div>
+          <form className="newListForm">
+            <input type="text" placeholder="Digite o nome da lista..." />
+            <div className="inputWithButton">
+              <input type="text" placeholder="Adicionar tarefa" />
+              <button>
+                <img src={addButton} alt="adicionar tarefa" />
+              </button>
+            </div>
+            <div className="formButtons">
+              <button className="button cancelBtn" type="submit">
+                Cancelar
+              </button>
+              <button className="button createBtn" type="submit">
+                Criar lista
+              </button>
+            </div>
+          </form>
+          <div className="newListPreview">
+            <div className="listPreview">
+              <div className="newListHeaderPreview">
+                <img src={listIcon} alt="ícone lista" />
+                <p>Lista 1</p>
+              </div>
+              <div className="newListIcons">
+                <img src={editlistIcon} alt="editar lista" />
+                <img src={deletelistIcon} alt="deletar lista" />
+              </div>
+            </div>
+            <div className="newTaskPreview">
+              <div className="newTaskHeader">
+                <input type="checkbox" className="subTaskCheckbox" />
+                <p>Tarefa 1</p>
+              </div>
+              <img src={deleteTaskIcon} alt="deletar tarefa" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default NewTask;
+export default NewList;

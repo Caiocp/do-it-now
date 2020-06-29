@@ -1,0 +1,107 @@
+.container{
+    display: flex;
+    align-items: center;
+}
+
+.newListContainer{
+    width: 100%;
+    max-width: 50%;
+}
+
+.newListHeader{
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.newListForm input{
+    width: 100%;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid #EF7734;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    padding: 0 10px;
+    font-size: 18px;   
+}
+
+.inputWithButton{
+    display: flex;
+    border: 1px solid #EF7734;
+    border-radius: 3px;
+    height: 40px;
+}
+.inputWithButton input{
+    flex-grow: 2;
+    border: 0;
+}
+.newListForm div button{
+    border: 0;
+    margin-right: 5px;
+}
+
+.formButtons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.formButtons button{
+    margin-right: 10px !important;
+    max-width: 25%;
+}
+.cancelBtn{
+    background-color: #D3CE3D;
+    color: #574437 !important;
+}
+.createBtn{
+    background-color: #EF7734;
+}
+
+.newListPreview{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.listPreview{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #B4D9CB;
+    width: 100%;
+    padding: 2px 0;
+    margin-bottom: 5px;
+}
+
+.newListHeaderPreview{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.newListHeaderPreview img{
+    margin-right: 10px;
+}
+.newListHeaderPreview p{
+    font-size: 18px;
+}
+
+.newListIcons img:first-child{
+    margin-right: 10px;
+}
+
+.newTaskPreview{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    border-bottom: 2px solid #B4D9CB;
+    padding: 5px 0;
+}
+.newTaskHeader{
+    display: flex;
+    align-items: center;
+}
+.newTaskHeader p{
+    font-size: 16px;
+}
