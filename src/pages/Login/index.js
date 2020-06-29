@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
+import { ToastContainer, toast } from "react-toastify";
 
 import DINLogo from "../../assets/marca_mini_app.png";
+import schema from "../../utils/LoginValidatorSchema";
 
+import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
 
 function Login() {
@@ -12,10 +15,26 @@ function Login() {
 
   const history = useHistory();
 
-  function handleRegister(e) {
+  async function handleLogin(e) {
     e.preventDefault();
 
-    history.push("/dashboard");
+    try {
+      await schema.validate({ name, password });
+
+      localStorage.setItem("username", name);
+
+      history.push("/dashboard");
+    } catch (error) {
+      toast.error(error.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   }
 
   return (
@@ -32,7 +51,7 @@ function Login() {
         </Link>
         <div className="formCard">
           <div className="loginText">Entrar</div>
-          <form onSubmit={handleRegister}>
+          <form onSubmit={handleLogin}>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -51,6 +70,7 @@ function Login() {
               </button>
             </div>
           </form>
+          <ToastContainer />
         </div>
       </div>
     </div>
