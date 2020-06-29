@@ -15,11 +15,11 @@ function Initial() {
           <img src={DINLogo} alt="do it now logo" />
         </div>
         <div className="buttonContainer">
+          <Link to="/register">
+            <button className="button registerbtn">Criar conta</button>
+          </Link>
           <Link to="/login">
             <button className="button loginbtn">Entrar</button>
-          </Link>
-          <Link to="/register">
-            <button className="button registerbtn">Cadastrar</button>
           </Link>
         </div>
       </div>

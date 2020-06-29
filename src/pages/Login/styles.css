@@ -42,7 +42,8 @@
   .loginBtn{
     background-color: #D3CE3D;
     margin-top: 20px;
-    width: 50% !important; 
+    width: 50% !important;
+    color: #574437 !important;
   }
 
   .backLink {
