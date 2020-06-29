@@ -90,36 +90,6 @@ input{
     cursor: pointer;
 }
 
-.taskCheckbox{
-    -webkit-appearance: none;
-	border: 2px solid #B4D9CB;
-	padding: 8px;
-	border-radius: 3px;
-	display: inline-block;
-    position: relative;
-    cursor: pointer;
-}
-.taskCheckbox:checked {
-	background-color: #B4D9CB;
-	border: 2px solid #B4D9CB;
-	
-}
-.subTaskCheckbox{
-    -webkit-appearance: none;
-	border: 2px solid #B4D9CB;
-	padding: 6px;
-	border-radius: 3px;
-	display: inline-block;
-    position: relative;
-    cursor: pointer;
-}
-
-.subTaskCheckbox:checked {
-	background-color: #B4D9CB;
-	border: 2px solid #B4D9CB;
-	
-}
-
 .fix{
     display: flex;
     align-items: center;

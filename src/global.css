@@ -20,10 +20,14 @@ button {
 form input {
     width: 100%;
     height: 60px;
-    color: #333;
+    color: #574437;
     border: 1px solid #dcdce6;
     border-radius: 8px;
     padding: 0 24px;
+}
+
+p, input, strong{
+    color: #574437;
 }
 
 #root{
@@ -58,4 +62,34 @@ form input {
     justify-content: center;
     flex-direction: column;
     background: url('./assets/pattern.png');
+}
+
+.taskCheckbox{
+    -webkit-appearance: none;
+	border: 2px solid #B4D9CB;
+	padding: 8px;
+	border-radius: 3px;
+	display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+.taskCheckbox:checked {
+	background-color: #B4D9CB;
+	border: 2px solid #B4D9CB;
+	
+}
+.subTaskCheckbox{
+    -webkit-appearance: none;
+	border: 2px solid #B4D9CB;
+	padding: 6px;
+	border-radius: 3px;
+	display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.subTaskCheckbox:checked {
+	background-color: #B4D9CB;
+	border: 2px solid #B4D9CB;
+	
 }
