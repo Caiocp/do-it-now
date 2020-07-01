@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 import { addList } from "../../actions";
 
@@ -10,7 +11,9 @@ import listIcon from "../../assets/icone_lista.png";
 import deletelistIcon from "../../assets/icone_deletar_lista.png";
 import editlistIcon from "../../assets/icone_editar.png";
 import deleteTaskIcon from "../../assets/icone_deletar_tarefa-subtarefa.png";
+import schema from "../../utils/inputValidatorSchema";
 
+import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
 
 function NewList() {
@@ -21,20 +24,48 @@ function NewList() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  function handleAddTask() {
-    setAllTasks([...allTasks, task]);
-    setTask("");
+  async function handleAddTask() {
+    try {
+      await schema.validate({ title: task });
+      setAllTasks([...allTasks, task]);
+      setTask("");
+    } catch (error) {
+      toast.error(error.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   }
 
-  function handleCreateButton() {
-    dispatch(addList(list, allTasks));
-    setList("");
-    setAllTasks([]);
-    history.push("/dashboard");
+  async function handleCreateButton() {
+    try {
+      await schema.validate({ title: list });
+      dispatch(addList(list, allTasks));
+      setList("");
+      setAllTasks([]);
+      history.push("/dashboard");
+    } catch (error) {
+      toast.error(error.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   }
 
   function handleCancelButton() {
-    alert("canelou");
+    setList("");
+    setTask("");
+    setAllTasks([]);
   }
 
   return (
@@ -45,7 +76,7 @@ function NewList() {
           <div className="newListHeader">
             <p>Criar Lista</p>
           </div>
-          <form className="newListForm" onSubmit={(e) => e.preventDefault()}>
+          <div className="newListForm">
             <input
               type="text"
               placeholder="Digite o nome da lista..."
@@ -79,7 +110,7 @@ function NewList() {
                 Criar lista
               </button>
             </div>
-          </form>
+          </div>
           <div className="newListPreview">
             <div className="listPreview">
               <div className="newListHeaderPreview">
@@ -112,6 +143,7 @@ function NewList() {
             )}
           </div>
         </div>
+        <ToastContainer />
       </div>
     </>
   );
