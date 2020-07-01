@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 
 import Header from "../../components/Header/";
 import {
@@ -10,6 +11,7 @@ import {
   addSubTask,
   deleteSubTask,
 } from "../../actions";
+import schema from "../../utils/inputValidatorSchema";
 
 import addButton from "../../assets/botao_adicionar.png";
 import listIcon from "../../assets/icone_lista.png";
@@ -17,6 +19,7 @@ import editListIcon from "../../assets/icone_editar.png";
 import deleteListIcon from "../../assets/icone_deletar_lista.png";
 import deleSubTaskIcon from "../../assets/icone_deletar_tarefa-subtarefa.png";
 
+import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
 
 function Dashboard() {
@@ -39,18 +42,44 @@ function Dashboard() {
     }
   }
 
-  function handleAddTask(listId) {
-    dispatch(addTask(listId, task));
-    setTask("");
+  async function handleAddTask(listId) {
+    try {
+      await schema.validate({ title: task });
+      dispatch(addTask(listId, task));
+      setTask("");
+    } catch (error) {
+      toast.error(error.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   }
   function handleDeleteTask(listId, taskId) {
     dispatch(deleteTask(listId, taskId));
     setRender(!render);
   }
 
-  function handleAddSubTask(listId, taskId, subTask) {
-    dispatch(addSubTask(listId, taskId, subTask));
-    setSubTask("");
+  async function handleAddSubTask(listId, taskId, subTask) {
+    try {
+      await schema.validate({ title: subTask });
+      dispatch(addSubTask(listId, taskId, subTask));
+      setSubTask("");
+    } catch (error) {
+      toast.error(error.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   }
   function handleDeleteSubTask(listId, taskId, subTaskId) {
     dispatch(deleteSubTask(listId, taskId, subTaskId));
@@ -164,6 +193,7 @@ function Dashboard() {
           ))}
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }
