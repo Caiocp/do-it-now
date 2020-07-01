@@ -2,8 +2,6 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
     margin-top: 100px;
 }
 
@@ -93,4 +91,42 @@ input{
 .fix{
     display: flex;
     align-items: center;
+}
+
+.toggleEditInput{
+    display: flex;
+    border: 1px solid #EF7734;
+    border-radius: 3px;
+    height: 40px;
+    max-width: 80%;
+    margin-left: 120px;
+}
+.toggleEditInput input{
+    flex-grow: 2;
+    border: 0;
+    background-color: transparent;
+    padding: 10px;
+}
+.toggleEditInput button{
+    border: 0;
+    margin-right: 5px;
+}
+
+.toggleEditSubTaskInput{
+    display: flex;
+    border: 1px solid #EF7734;
+    border-radius: 3px;
+    height: 40px;
+    max-width: 80%;
+    margin-left: 60px;
+}
+.toggleEditSubTaskInput input{
+    flex-grow: 2;
+    border: 0;
+    background-color: transparent;
+    padding: 10px;
+}
+.toggleEditSubTaskInput button{
+    border: 0;
+    margin-right: 5px;
 }
