@@ -9,6 +9,7 @@ const taskReducer = (state = List, action) => {
             id: action.payload.id,
             title: action.payload.task,
             subTasks: [],
+            completed: false,
           });
         }
         return item;
@@ -21,6 +22,21 @@ const taskReducer = (state = List, action) => {
         }
         return item;
       });
+
+    case "TOGGLE_TASK_STATUS":
+      state.forEach((item) => {
+        if (item.id === action.payload.listId) {
+          item.task.forEach((el) => {
+            if (el.id === action.payload.taskId) {
+              el.completed = action.payload.bool;
+              el.subTasks.forEach((subTask) => {
+                subTask.completed = action.payload.bool;
+              });
+            }
+          });
+        }
+      });
+      return state;
 
     default:
       return state;

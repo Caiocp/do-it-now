@@ -8,8 +8,10 @@ import {
   deleteList,
   addTask,
   deleteTask,
+  toggleTaskStatus,
   addSubTask,
   deleteSubTask,
+  toggleSubTaskStatus,
 } from "../../actions";
 import schema from "../../utils/inputValidatorSchema";
 
@@ -63,6 +65,10 @@ function Dashboard() {
     dispatch(deleteTask(listId, taskId));
     setRender(!render);
   }
+  function handleToggleTaskStatus(listId, taskId, bool) {
+    dispatch(toggleTaskStatus(listId, taskId, bool));
+    setRender(!render);
+  }
 
   async function handleAddSubTask(listId, taskId, subTask) {
     try {
@@ -85,6 +91,30 @@ function Dashboard() {
     dispatch(deleteSubTask(listId, taskId, subTaskId));
     setRender(!render);
   }
+  function handleToggleSubTaskStatus(listId, taskId, subTaskId, bool) {
+    dispatch(toggleSubTaskStatus(listId, taskId, subTaskId, bool));
+    setRender(!render);
+  }
+
+  function allSubTasksCompleted(listId, taskId) {
+    let completedCount = 0;
+    let subTaskAmount = 0;
+    let bool = false;
+    Lists.forEach((list) => {
+      if (list.id === listId) {
+        list.task.forEach((item) => {
+          if (item.id === taskId) {
+            item.subTasks.forEach((subTask) => {
+              subTaskAmount++;
+              if (subTask.completed) completedCount++;
+            });
+          }
+        });
+      }
+    });
+    if (subTaskAmount === completedCount) bool = true;
+    return bool;
+  }
 
   return (
     <>
@@ -102,7 +132,7 @@ function Dashboard() {
               <div className="listItemHeader">
                 <div>
                   <img src={listIcon} alt="ícone da lista" />
-                  <p>{list.title}</p>
+                  <strong>{list.title}</strong>
                 </div>
                 <div>
                   <img
@@ -139,8 +169,22 @@ function Dashboard() {
                   <div key={task.id} className="taskContainer">
                     <div className="taskHeader">
                       <div className="fix">
-                        <input type="checkbox" className="taskCheckbox" />
-                        <strong>{task.title}</strong>
+                        <input
+                          type="checkbox"
+                          className="taskCheckbox"
+                          checked={
+                            task.completed ||
+                            allSubTasksCompleted(list.id, task.id)
+                          }
+                          onChange={(e) =>
+                            handleToggleTaskStatus(
+                              list.id,
+                              task.id,
+                              e.target.checked
+                            )
+                          }
+                        />
+                        <p>{task.title}</p>
                       </div>
                       <img
                         src={deleSubTaskIcon}
@@ -156,6 +200,15 @@ function Dashboard() {
                             <input
                               type="checkbox"
                               className="subTaskCheckbox"
+                              checked={el.completed}
+                              onChange={(e) =>
+                                handleToggleSubTaskStatus(
+                                  list.id,
+                                  task.id,
+                                  el.id,
+                                  e.target.checked
+                                )
+                              }
                             />
                             <p>{el.name}</p>
                           </div>

@@ -27,6 +27,11 @@ export const deleteTask = (listId, taskId) => ({
   payload: { listId, taskId },
 });
 
+export const toggleTaskStatus = (listId, taskId, bool) => ({
+  type: "TOGGLE_TASK_STATUS",
+  payload: { listId, taskId, bool },
+});
+
 export const addSubTask = (listId, taskId, subTask) => ({
   type: "ADD_SUBTASK",
   payload: { listId, taskId, subTask, id: subTaskId++ },
@@ -35,4 +40,9 @@ export const addSubTask = (listId, taskId, subTask) => ({
 export const deleteSubTask = (listId, taskId, subTaskId) => ({
   type: "DELETE_SUBTASK",
   payload: { listId, taskId, subTaskId },
+});
+
+export const toggleSubTaskStatus = (listId, taskId, subTaskId, bool) => ({
+  type: "TOGGLE_SUBTASK_STATUS",
+  payload: { listId, taskId, subTaskId, bool },
 });
