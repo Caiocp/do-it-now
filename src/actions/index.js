@@ -78,9 +78,6 @@ export const toggleTaskStatus = (Lists, listId, taskId, bool) => {
       item.task.forEach((el) => {
         if (el.id === taskId) {
           el.completed = bool;
-          el.subTasks.forEach((subTask) => {
-            subTask.completed = bool;
-          });
         }
       });
     }

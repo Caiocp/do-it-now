@@ -23,6 +23,7 @@ import deleSubTaskIcon from "../../assets/icone_deletar_tarefa-subtarefa.png";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
+import lists from "../../utils/listData";
 
 function Dashboard() {
   const [editMode, setEditMode] = useState(false);
@@ -67,7 +68,21 @@ function Dashboard() {
     dispatch(deleteTask(Lists, listId, taskId));
   }
   function handleToggleTaskStatus(listId, taskId, bool) {
-    dispatch(toggleTaskStatus(Lists, listId, taskId, bool));
+    let newList = [];
+    newList = Lists.map((list) => {
+      if (list.id === listId) {
+        list.task.map((task) => {
+          if (task.id === taskId) {
+            task.subTasks.forEach((subTask) => {
+              subTask.completed = bool;
+            });
+          }
+          return task;
+        });
+      }
+      return list;
+    });
+    dispatch(toggleTaskStatus(newList, listId, taskId, bool));
   }
 
   async function handleAddSubTask(listId, taskId, subTask) {
@@ -91,29 +106,27 @@ function Dashboard() {
   }
   function handleToggleSubTaskStatus(listId, taskId, subTaskId, bool) {
     dispatch(toggleSubTaskStatus(Lists, listId, taskId, subTaskId, bool));
-  }
-
-  function allSubTasksCompleted(listId, taskId) {
     let completedCount = 0;
     let subTaskAmount = 0;
     let hasSubTask = false;
+    let motherCheckBoxValue = false;
     Lists.forEach((list) => {
       if (list.id === listId) {
         list.task.forEach((item) => {
           if (item.id === taskId) {
             item.subTasks.length ? (hasSubTask = true) : (hasSubTask = false);
             item.subTasks.forEach((subTask) => {
-              subTaskAmount++;
-              if (subTask.completed) completedCount++;
+              subTaskAmount += 1;
+              if (subTask.completed) completedCount += 1;
             });
           }
         });
       }
     });
     if (subTaskAmount === completedCount && hasSubTask) {
-      return true;
+      motherCheckBoxValue = true;
     }
-    return false;
+    dispatch(toggleTaskStatus(Lists, listId, taskId, motherCheckBoxValue));
   }
 
   return (
@@ -172,17 +185,14 @@ function Dashboard() {
                         <input
                           type="checkbox"
                           className="taskCheckbox"
-                          checked={
-                            task.completed &&
-                            allSubTasksCompleted(list.id, task.id)
-                          }
-                          onChange={(e) =>
+                          checked={task.completed}
+                          onChange={(e) => {
                             handleToggleTaskStatus(
                               list.id,
                               task.id,
                               e.target.checked
-                            )
-                          }
+                            );
+                          }}
                         />
                         <p>{task.title}</p>
                       </div>
@@ -201,14 +211,14 @@ function Dashboard() {
                               type="checkbox"
                               className="subTaskCheckbox"
                               checked={el.completed}
-                              onChange={(e) =>
+                              onChange={(e) => {
                                 handleToggleSubTaskStatus(
                                   list.id,
                                   task.id,
                                   el.id,
                                   e.target.checked
-                                )
-                              }
+                                );
+                              }}
                             />
                             <p>{el.name}</p>
                           </div>
