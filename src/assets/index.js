@@ -1,0 +1,9 @@
+export { default as addButton } from "./botao_adicionar.png";
+export { default as listIcon } from "./icone_lista.png";
+export { default as editListIcon } from "./icone_editar.png";
+export { default as deleteListIcon } from "./icone_deletar_lista.png";
+export { default as deleteTaskIcon } from "./icone_deletar_lista.png";
+export { default as deleSubTaskIcon } from "./icone_deletar_tarefa-subtarefa.png";
+export { default as camera } from "./camera.png";
+export { default as DINLogo } from "./marca_mini_app.png";
+export { default as pcLogo } from "./img_responsive.png";

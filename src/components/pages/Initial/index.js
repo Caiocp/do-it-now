@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import pcLogo from "../../assets/img_responsive.png";
-import DINLogo from "../../assets/marca_mini_app.png";
+import { DINLogo, pcLogo } from "../../../assets";
 
 import "./styles.css";
 

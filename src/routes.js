@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Initial from "./pages/Initial";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import NewList from "./pages/NewList";
-
-// import { Container } from './styles';
+import {
+  Initial,
+  Login,
+  Register,
+  Dashboard,
+  NewList,
+} from "./components/pages/";
 
 function Routes() {
   return (
@@ -17,7 +17,7 @@ function Routes() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/dashboard" component={Dashboard} />
-        <Route path="/task" component={NewList} />
+        <Route path="/list" component={NewList} />
       </Switch>
     </Router>
   );

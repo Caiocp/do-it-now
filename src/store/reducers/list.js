@@ -1,4 +1,4 @@
-import List from "../utils/listData";
+import List from "../../utils/listData";
 
 const listReducer = (state = List, action) => {
   switch (action.type) {

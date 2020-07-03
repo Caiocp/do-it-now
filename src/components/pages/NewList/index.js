@@ -3,15 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
-import { addList } from "../../actions";
+import { addList } from "../../../store/actions";
 
-import Header from "../../components/Header/";
-import addButton from "../../assets/botao_adicionar.png";
-import listIcon from "../../assets/icone_lista.png";
-import deletelistIcon from "../../assets/icone_deletar_lista.png";
-import editlistIcon from "../../assets/icone_editar.png";
-import deleteTaskIcon from "../../assets/icone_deletar_tarefa-subtarefa.png";
-import schema from "../../utils/inputValidatorSchema";
+import Header from "../../Header";
+import schema from "../../../utils/inputValidatorSchema";
+
+import {
+  addButton,
+  deleteListIcon,
+  editListIcon,
+  listIcon,
+  deleteTaskIcon,
+} from "../../../assets";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
@@ -120,8 +123,8 @@ function NewList() {
                 <p>{listName}</p>
               </div>
               <div className="newListIcons">
-                <img src={editlistIcon} alt="editar lista" />
-                <img src={deletelistIcon} alt="deletar lista" />
+                <img src={editListIcon} alt="editar lista" />
+                <img src={deleteListIcon} alt="deletar lista" />
               </div>
             </div>
             {allTasks.length === 0 ? (

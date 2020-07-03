@@ -3,9 +3,8 @@ import { Link, useHistory } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 
-import schema from "../../utils/registerValidatorSchema";
-import Camera from "../../assets/camera.png";
-import DINLogo from "../../assets/marca_mini_app.png";
+import schema from "../../../utils/registerValidatorSchema";
+import { camera, DINLogo } from "../../../assets";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
@@ -53,7 +52,7 @@ function Register() {
         </Link>
         <div className="formCard">
           <div className="loginHeader">
-            <img style={{ marginBottom: 10 }} src={Camera} alt="pc-logo" />
+            <img style={{ marginBottom: 10 }} src={camera} alt="pc-logo" />
             Criar Conta
           </div>
           <form onSubmit={handleRegister}>

@@ -3,8 +3,8 @@ import { Link, useHistory } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 
-import DINLogo from "../../assets/marca_mini_app.png";
-import schema from "../../utils/loginValidatorSchema";
+import { DINLogo } from "../../../assets";
+import schema from "../../../utils/loginValidatorSchema";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
