@@ -21,7 +21,7 @@ export const addList = (List, listName, tasks) => {
   List.push(newList);
   return {
     type: "ADD_LIST",
-    payload: List,
+    payload: [...List],
   };
 };
 
@@ -30,7 +30,7 @@ export const deleteList = (Lists, id) => {
 
   return {
     type: "DELETE_LIST",
-    payload: Lists,
+    payload: [...Lists],
   };
 };
 
@@ -54,7 +54,7 @@ export const addTask = (Lists, listId, task) => {
 
   return {
     type: "ADD_TASK",
-    payload: Lists,
+    payload: [...Lists],
   };
 };
 
@@ -68,7 +68,7 @@ export const deleteTask = (Lists, listId, taskId) => {
 
   return {
     type: "DELETE_TASK",
-    payload: Lists,
+    payload: [...Lists],
   };
 };
 
@@ -88,7 +88,7 @@ export const toggleTaskStatus = (Lists, listId, taskId, bool) => {
 
   return {
     type: "TOGGLE_TASK_STATUS",
-    payload: Lists,
+    payload: [...Lists],
   };
 };
 
@@ -109,7 +109,7 @@ export const addSubTask = (Lists, listId, taskId, subTask) => {
 
   return {
     type: "ADD_SUBTASK",
-    payload: Lists,
+    payload: [...Lists],
   };
 };
 
@@ -118,10 +118,7 @@ export const deleteSubTask = (Lists, listId, taskId, subTaskId) => {
     if (list.id === listId) {
       list.task.forEach((task) => {
         if (task.id === taskId) {
-          console.log(task.subTasks);
-          console.log(subTaskId);
           task.subTasks = task.subTasks.filter((el) => el.id !== subTaskId);
-          console.log(task.subTasks);
         }
       });
     }
@@ -129,7 +126,7 @@ export const deleteSubTask = (Lists, listId, taskId, subTaskId) => {
 
   return {
     type: "DELETE_SUBTASK",
-    payload: Lists,
+    payload: [...Lists],
   };
 };
 
@@ -150,6 +147,6 @@ export const toggleSubTaskStatus = (Lists, listId, taskId, subTaskId, bool) => {
 
   return {
     type: "TOGGLE_SUBTASK_STATUS",
-    payload: Lists,
+    payload: [...Lists],
   };
 };

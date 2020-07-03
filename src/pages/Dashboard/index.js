@@ -28,7 +28,7 @@ function Dashboard() {
   const [editMode, setEditMode] = useState(false);
   const [editlistId, setEditListId] = useState(null);
   const [task, setTask] = useState("");
-  const [render, setRender] = useState(false);
+  const [, setSubTask] = useState("");
 
   const inputref = useRef([]);
 
@@ -65,18 +65,15 @@ function Dashboard() {
   }
   function handleDeleteTask(listId, taskId) {
     dispatch(deleteTask(Lists, listId, taskId));
-    setRender(!render);
   }
   function handleToggleTaskStatus(listId, taskId, bool) {
     dispatch(toggleTaskStatus(Lists, listId, taskId, bool));
-    setRender(!render);
   }
 
   async function handleAddSubTask(listId, taskId, subTask) {
     try {
       await schema.validate({ title: subTask });
       dispatch(addSubTask(Lists, listId, taskId, subTask));
-      setRender(!render);
     } catch (error) {
       toast.error(error.message, {
         position: "bottom-right",
@@ -91,11 +88,9 @@ function Dashboard() {
   }
   function handleDeleteSubTask(listId, taskId, subTaskId) {
     dispatch(deleteSubTask(Lists, listId, taskId, subTaskId));
-    setRender(!render);
   }
   function handleToggleSubTaskStatus(listId, taskId, subTaskId, bool) {
     dispatch(toggleSubTaskStatus(Lists, listId, taskId, subTaskId, bool));
-    setRender(!render);
   }
 
   function allSubTasksCompleted(listId, taskId) {
@@ -105,23 +100,20 @@ function Dashboard() {
     Lists.forEach((list) => {
       if (list.id === listId) {
         list.task.forEach((item) => {
-          console.log(subTaskAmount, completedCount);
           if (item.id === taskId) {
             item.subTasks.length ? (hasSubTask = true) : (hasSubTask = false);
             item.subTasks.forEach((subTask) => {
               subTaskAmount++;
               if (subTask.completed) completedCount++;
-              console.log(subTaskAmount, completedCount);
             });
           }
         });
       }
     });
-
-    console.log(subTaskAmount, completedCount);
     if (subTaskAmount === completedCount && hasSubTask) {
       return true;
     }
+    return false;
   }
 
   return (
@@ -237,11 +229,12 @@ function Dashboard() {
                           type="text"
                           ref={(el) => (inputref.current[key] = el)}
                           placeholder="Adicionar subtarefa"
-                          defaultValue={
+                          value={
                             inputref.current[key]
                               ? inputref.current[key].value
                               : ""
                           }
+                          onChange={(e) => setSubTask(e.target.value)}
                         />
                         <button
                           onClick={() => {

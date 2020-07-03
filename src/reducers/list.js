@@ -20,6 +20,8 @@ const listReducer = (state = List, action) => {
       return action.payload;
     case "DELETE_SUBTASK":
       return action.payload;
+    case "TOGGLE_SUBTASK_STATUS":
+      return action.payload;
 
     default:
       return state;
