@@ -1,11 +1,10 @@
-import { combineReducers } from "redux";
+import { createStore } from "redux";
 
 import List from "./list";
-import Task from "./task";
-import SubTask from "./subTask";
 
-export default combineReducers({
+const store = createStore(
   List,
-  Task,
-  SubTask,
-});
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+export default store;

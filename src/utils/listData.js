@@ -3,7 +3,6 @@ let lists = [
     id: 1,
     title: "Lista 1",
     task: [],
-    completed: false,
   },
   {
     id: 2,
@@ -40,7 +39,6 @@ let lists = [
     id: 3,
     title: "Lista 3",
     task: [],
-    completed: false,
   },
 ];
 

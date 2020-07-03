@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -17,10 +17,11 @@ import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
 
 function NewList() {
-  const [list, setList] = useState("");
+  const [listName, setList] = useState("");
   const [task, setTask] = useState("");
   const [allTasks, setAllTasks] = useState([]);
 
+  const Lists = useSelector((state) => state.List);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -44,8 +45,8 @@ function NewList() {
 
   async function handleCreateButton() {
     try {
-      await schema.validate({ title: list });
-      dispatch(addList(list, allTasks));
+      await schema.validate({ title: listName });
+      dispatch(addList(Lists, listName, allTasks));
       setList("");
       setAllTasks([]);
       history.push("/dashboard");
@@ -80,7 +81,7 @@ function NewList() {
             <input
               type="text"
               placeholder="Digite o nome da lista..."
-              value={list}
+              value={listName}
               onChange={(e) => {
                 setList(e.target.value);
               }}
@@ -115,7 +116,7 @@ function NewList() {
             <div className="listPreview">
               <div className="newListHeaderPreview">
                 <img src={listIcon} alt="ícone lista" />
-                <p>{list}</p>
+                <p>{listName}</p>
               </div>
               <div className="newListIcons">
                 <img src={editlistIcon} alt="editar lista" />

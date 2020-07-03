@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -28,10 +28,11 @@ function Dashboard() {
   const [editMode, setEditMode] = useState(false);
   const [editlistId, setEditListId] = useState(null);
   const [task, setTask] = useState("");
-  const [subTask, setSubTask] = useState("");
   const [render, setRender] = useState(false);
 
-  const Lists = useSelector((state) => state.List);
+  const inputref = useRef([]);
+
+  const Lists = useSelector((state) => state);
   const dispatch = useDispatch();
 
   function toggleEditMode(id) {
@@ -42,12 +43,13 @@ function Dashboard() {
       setEditMode(!editMode);
       setEditListId(id);
     }
+    setTask("");
   }
 
-  async function handleAddTask(listId) {
+  async function handleAddTask(List, listId) {
     try {
       await schema.validate({ title: task });
-      dispatch(addTask(listId, task));
+      dispatch(addTask(List, listId, task));
       setTask("");
     } catch (error) {
       toast.error(error.message, {
@@ -62,19 +64,19 @@ function Dashboard() {
     }
   }
   function handleDeleteTask(listId, taskId) {
-    dispatch(deleteTask(listId, taskId));
+    dispatch(deleteTask(Lists, listId, taskId));
     setRender(!render);
   }
   function handleToggleTaskStatus(listId, taskId, bool) {
-    dispatch(toggleTaskStatus(listId, taskId, bool));
+    dispatch(toggleTaskStatus(Lists, listId, taskId, bool));
     setRender(!render);
   }
 
   async function handleAddSubTask(listId, taskId, subTask) {
     try {
       await schema.validate({ title: subTask });
-      dispatch(addSubTask(listId, taskId, subTask));
-      setSubTask("");
+      dispatch(addSubTask(Lists, listId, taskId, subTask));
+      setRender(!render);
     } catch (error) {
       toast.error(error.message, {
         position: "bottom-right",
@@ -88,32 +90,38 @@ function Dashboard() {
     }
   }
   function handleDeleteSubTask(listId, taskId, subTaskId) {
-    dispatch(deleteSubTask(listId, taskId, subTaskId));
+    dispatch(deleteSubTask(Lists, listId, taskId, subTaskId));
     setRender(!render);
   }
   function handleToggleSubTaskStatus(listId, taskId, subTaskId, bool) {
-    dispatch(toggleSubTaskStatus(listId, taskId, subTaskId, bool));
+    dispatch(toggleSubTaskStatus(Lists, listId, taskId, subTaskId, bool));
     setRender(!render);
   }
 
   function allSubTasksCompleted(listId, taskId) {
     let completedCount = 0;
     let subTaskAmount = 0;
-    let bool = false;
+    let hasSubTask = false;
     Lists.forEach((list) => {
       if (list.id === listId) {
         list.task.forEach((item) => {
+          console.log(subTaskAmount, completedCount);
           if (item.id === taskId) {
+            item.subTasks.length ? (hasSubTask = true) : (hasSubTask = false);
             item.subTasks.forEach((subTask) => {
               subTaskAmount++;
               if (subTask.completed) completedCount++;
+              console.log(subTaskAmount, completedCount);
             });
           }
         });
       }
     });
-    if (subTaskAmount === completedCount) bool = true;
-    return bool;
+
+    console.log(subTaskAmount, completedCount);
+    if (subTaskAmount === completedCount && hasSubTask) {
+      return true;
+    }
   }
 
   return (
@@ -145,7 +153,7 @@ function Dashboard() {
                     src={deleteListIcon}
                     alt="excluir lista"
                     onClick={() => {
-                      dispatch(deleteList(list.id));
+                      dispatch(deleteList(Lists, list.id));
                     }}
                     style={{ cursor: "pointer" }}
                   />
@@ -159,13 +167,13 @@ function Dashboard() {
                     value={task}
                     onChange={(e) => setTask(e.target.value)}
                   />
-                  <button onClick={() => handleAddTask(list.id)}>
+                  <button onClick={() => handleAddTask(Lists, list.id)}>
                     <img src={addButton} alt="adicionar tarefa" />
                   </button>
                 </div>
               ) : null}
               <div>
-                {list.task.map((task) => (
+                {list.task.map((task, key) => (
                   <div key={task.id} className="taskContainer">
                     <div className="taskHeader">
                       <div className="fix">
@@ -173,7 +181,7 @@ function Dashboard() {
                           type="checkbox"
                           className="taskCheckbox"
                           checked={
-                            task.completed ||
+                            task.completed &&
                             allSubTasksCompleted(list.id, task.id)
                           }
                           onChange={(e) =>
@@ -227,13 +235,23 @@ function Dashboard() {
                       <div className="toggleEditSubTaskInput">
                         <input
                           type="text"
+                          ref={(el) => (inputref.current[key] = el)}
                           placeholder="Adicionar subtarefa"
-                          onChange={(e) => setSubTask(e.target.value)}
+                          defaultValue={
+                            inputref.current[key]
+                              ? inputref.current[key].value
+                              : ""
+                          }
                         />
                         <button
-                          onClick={() =>
-                            handleAddSubTask(list.id, task.id, subTask)
-                          }
+                          onClick={() => {
+                            handleAddSubTask(
+                              list.id,
+                              task.id,
+                              inputref.current[key].value
+                            );
+                            inputref.current[key].value = "";
+                          }}
                         >
                           <img src={addButton} alt="adicionar tarefa" />
                         </button>

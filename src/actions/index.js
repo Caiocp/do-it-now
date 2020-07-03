@@ -2,47 +2,154 @@ let listId = 4;
 let taskId = 4;
 let subTaskId = 4;
 
-export const addList = (list, tasks) => ({
-  type: "ADD_LIST",
-  payload: { id: listId++, list, tasks, taskId: taskId++ },
-});
+export const addList = (List, listName, tasks) => {
+  let taskArr = [];
+  tasks.forEach((taskName) => {
+    taskArr.push({
+      id: taskId++,
+      title: taskName,
+      subTasks: [],
+      completed: false,
+    });
+  });
 
-export const deleteList = (id) => ({
-  type: "DELETE_LIST",
-  payload: { id },
-});
+  let newList = {
+    id: listId++,
+    title: listName,
+    task: taskArr,
+  };
+  List.push(newList);
+  return {
+    type: "ADD_LIST",
+    payload: List,
+  };
+};
+
+export const deleteList = (Lists, id) => {
+  Lists = Lists.filter((item) => item.id !== id);
+
+  return {
+    type: "DELETE_LIST",
+    payload: Lists,
+  };
+};
 
 export const updateList = (list) => ({
   type: "UPDATE_LIST",
   payload: { list },
 });
 
-export const addTask = (listId, task) => ({
-  type: "ADD_TASK",
-  payload: { listId, task, id: taskId++ },
-});
+export const addTask = (Lists, listId, task) => {
+  Lists.filter((item) => {
+    if (item.id === listId) {
+      item.task.push({
+        id: taskId++,
+        title: task,
+        subTasks: [],
+        completed: false,
+      });
+    }
+    return item;
+  });
 
-export const deleteTask = (listId, taskId) => ({
-  type: "DELETE_TASK",
-  payload: { listId, taskId },
-});
+  return {
+    type: "ADD_TASK",
+    payload: Lists,
+  };
+};
 
-export const toggleTaskStatus = (listId, taskId, bool) => ({
-  type: "TOGGLE_TASK_STATUS",
-  payload: { listId, taskId, bool },
-});
+export const deleteTask = (Lists, listId, taskId) => {
+  Lists.filter((item) => {
+    if (item.id === listId) {
+      item.task = item.task.filter((el) => el.id !== taskId);
+    }
+    return item;
+  });
 
-export const addSubTask = (listId, taskId, subTask) => ({
-  type: "ADD_SUBTASK",
-  payload: { listId, taskId, subTask, id: subTaskId++ },
-});
+  return {
+    type: "DELETE_TASK",
+    payload: Lists,
+  };
+};
 
-export const deleteSubTask = (listId, taskId, subTaskId) => ({
-  type: "DELETE_SUBTASK",
-  payload: { listId, taskId, subTaskId },
-});
+export const toggleTaskStatus = (Lists, listId, taskId, bool) => {
+  Lists.forEach((item) => {
+    if (item.id === listId) {
+      item.task.forEach((el) => {
+        if (el.id === taskId) {
+          el.completed = bool;
+          el.subTasks.forEach((subTask) => {
+            subTask.completed = bool;
+          });
+        }
+      });
+    }
+  });
 
-export const toggleSubTaskStatus = (listId, taskId, subTaskId, bool) => ({
-  type: "TOGGLE_SUBTASK_STATUS",
-  payload: { listId, taskId, subTaskId, bool },
-});
+  return {
+    type: "TOGGLE_TASK_STATUS",
+    payload: Lists,
+  };
+};
+
+export const addSubTask = (Lists, listId, taskId, subTask) => {
+  Lists.forEach((list) => {
+    if (list.id === listId) {
+      list.task.forEach((task) => {
+        if (task.id === taskId) {
+          task.subTasks.push({
+            id: subTaskId++,
+            name: subTask,
+            completed: false,
+          });
+        }
+      });
+    }
+  });
+
+  return {
+    type: "ADD_SUBTASK",
+    payload: Lists,
+  };
+};
+
+export const deleteSubTask = (Lists, listId, taskId, subTaskId) => {
+  Lists.forEach((list) => {
+    if (list.id === listId) {
+      list.task.forEach((task) => {
+        if (task.id === taskId) {
+          console.log(task.subTasks);
+          console.log(subTaskId);
+          task.subTasks = task.subTasks.filter((el) => el.id !== subTaskId);
+          console.log(task.subTasks);
+        }
+      });
+    }
+  });
+
+  return {
+    type: "DELETE_SUBTASK",
+    payload: Lists,
+  };
+};
+
+export const toggleSubTaskStatus = (Lists, listId, taskId, subTaskId, bool) => {
+  Lists.forEach((item) => {
+    if (item.id === listId) {
+      item.task.forEach((task) => {
+        if (task.id === taskId) {
+          task.subTasks.forEach((subTask) => {
+            if (subTask.id === subTaskId) {
+              subTask.completed = bool;
+            }
+          });
+        }
+      });
+    }
+  });
+
+  return {
+    type: "TOGGLE_SUBTASK_STATUS",
+    payload: Lists,
+  };
+};
