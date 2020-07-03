@@ -23,17 +23,16 @@ import deleSubTaskIcon from "../../assets/icone_deletar_tarefa-subtarefa.png";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
-import lists from "../../utils/listData";
 
 function Dashboard() {
   const [editMode, setEditMode] = useState(false);
   const [editlistId, setEditListId] = useState(null);
   const [task, setTask] = useState("");
-  const [, setSubTask] = useState("");
+  const [subTask, setSubTask] = useState("");
 
   const inputref = useRef([]);
 
-  const Lists = useSelector((state) => state);
+  const Lists = useSelector((lists) => lists);
   const dispatch = useDispatch();
 
   function toggleEditMode(id) {

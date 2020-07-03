@@ -21,7 +21,7 @@ function NewList() {
   const [task, setTask] = useState("");
   const [allTasks, setAllTasks] = useState([]);
 
-  const Lists = useSelector((state) => state.List);
+  const Lists = useSelector((lists) => lists);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -67,6 +67,7 @@ function NewList() {
     setList("");
     setTask("");
     setAllTasks([]);
+    history.push("/dashboard");
   }
 
   return (
@@ -132,11 +133,11 @@ function NewList() {
                 <img src={deleteTaskIcon} alt="deletar tarefa" />
               </div>
             ) : (
-              allTasks.map((item) => (
-                <div key={item} className="newTaskPreview">
+              allTasks.map((taskName) => (
+                <div key={taskName} className="newTaskPreview">
                   <div className="newTaskHeader">
                     <input type="checkbox" className="subTaskCheckbox" />
-                    <p>{item}</p>
+                    <p>{taskName}</p>
                   </div>
                   <img src={deleteTaskIcon} alt="deletar tarefa" />
                 </div>
